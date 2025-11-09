@@ -1,0 +1,4 @@
+project_id = "ogrofuqrqgmghgnrdyao"
+
+[functions.empathy-chat]
+verify_jwt = true
