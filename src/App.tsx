@@ -17,15 +17,20 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Set up auth state listener FIRST
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('Auth state changed:', _event, session?.user?.email);
       setSession(session);
       setLoading(false);
     });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session:', session?.user?.email);
       setSession(session);
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
