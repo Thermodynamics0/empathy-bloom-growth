@@ -10,6 +10,9 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import ReportIssue from "./pages/ReportIssue";
 
 const queryClient = new QueryClient();
 
@@ -59,18 +62,42 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/privacy-policy"
+            element={
+              <ProtectedRoute>
+                <PrivacyPolicy />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/terms-of-service"
+            element={
+              <ProtectedRoute>
+                <TermsOfService />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report-issue"
+            element={
+              <ProtectedRoute>
+                <ReportIssue />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
