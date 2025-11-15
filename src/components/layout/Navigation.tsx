@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Sparkles, User, Settings, Moon, Sun } from "lucide-react";
+import { LogOut, Sparkles, Shield, FileText, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   DropdownMenu,
@@ -12,13 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const Navigation = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { theme, setTheme } = useTheme();
   const [userEmail, setUserEmail] = useState<string>("");
 
   useEffect(() => {
@@ -36,10 +34,6 @@ export const Navigation = () => {
       description: "See you soon! 🌸",
     });
     navigate("/auth");
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const getUserInitials = () => {
@@ -76,17 +70,17 @@ export const Navigation = () => {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={toggleTheme}>
-                {theme === "dark" ? (
-                  <Sun className="h-4 w-4 mr-2" />
-                ) : (
-                  <Moon className="h-4 w-4 mr-2" />
-                )}
-                {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              <DropdownMenuItem onClick={() => navigate("/privacy-policy")}>
+                <Shield className="h-4 w-4 mr-2" />
+                Privacy Policy
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
+              <DropdownMenuItem onClick={() => navigate("/terms-of-service")}>
+                <FileText className="h-4 w-4 mr-2" />
+                Terms of Service
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/report-issue")}>
+                <AlertCircle className="h-4 w-4 mr-2" />
+                Report an Issue
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
